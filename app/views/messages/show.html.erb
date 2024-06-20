@@ -1,0 +1,17 @@
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">
+      <% if @message.outbox.user.is_doctor? %>Dr.<% end %>
+      <%= @message.outbox.user.full_name %>
+    </h5>
+    <p class="card-text"><%= @message.body %></p>
+
+    <div class="d-flex">
+      <%= link_to t('.reply'), new_message_path, class: 'btn btn-primary' %>
+      <%= link_to t('.lost_rescription'), "#", class: 'btn btn-secondary me-auto ms-2' %>
+      <%= link_to t('common.back'), :back, class: 'btn btn-link' %>
+    </div>
+
+
+  </div>
+</div>

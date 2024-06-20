@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= t('application.title') %></title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body class="bg-light">
+    <div class="container">
+      <%= render 'navigation/header' %>
+
+      <main role="main">
+        <%= yield %>
+      </main>
+    </div>
+  </body>
+</html>
