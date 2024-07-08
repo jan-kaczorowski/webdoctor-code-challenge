@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2019_06_26_153436) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_08_094750) do
   create_table "inboxes", force: :cascade do |t|
     t.integer "user_id"
     t.index ["user_id"], name: "index_inboxes_on_user_id"
@@ -23,8 +23,10 @@ ActiveRecord::Schema[7.1].define(version: 2019_06_26_153436) do
     t.boolean "read", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "previous_message_id"
     t.index ["inbox_id"], name: "index_messages_on_inbox_id"
     t.index ["outbox_id"], name: "index_messages_on_outbox_id"
+    t.index ["previous_message_id"], name: "index_messages_on_previous_message_id"
   end
 
   create_table "outboxes", force: :cascade do |t|

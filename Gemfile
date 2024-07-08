@@ -14,6 +14,8 @@ gem 'rails', '~> 7.1'
 gem 'sqlite3', '~> 1.4'
 gem 'stimulus-rails'
 gem 'turbo-rails'
+gem 'byebug'
+gem 'view_component'
 
 group :development, :test do
   gem 'factory_bot_rails'
