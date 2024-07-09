@@ -5,8 +5,12 @@ class Message < ApplicationRecord
   after_initialize do
     next unless previous_message && !inbox && !outbox
 
-    self.inbox = previous_message.outbox.user.inbox
-    self.outbox = previous_message.inbox.user.outbox
+    inbox = previous_message.outbox.user.inbox
+    outbox = previous_message.inbox.user.outbox
+  end
+
+  after_save do
+    inbox.update_unread_messages_count
   end
 
   belongs_to :previous_message, class_name: 'Message', optional: true

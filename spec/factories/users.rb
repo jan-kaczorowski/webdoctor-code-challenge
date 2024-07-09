@@ -29,3 +29,17 @@ FactoryBot.define do
     end
   end
 end
+
+# == Schema Information
+#
+# Table name: users
+#
+#  id         :integer          not null, primary key
+#  first_name :string
+#  is_admin   :boolean          default(FALSE), not null
+#  is_doctor  :boolean          default(FALSE), not null
+#  is_patient :boolean          default(TRUE), not null
+#  last_name  :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
