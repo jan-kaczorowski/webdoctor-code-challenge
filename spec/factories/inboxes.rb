@@ -3,6 +3,7 @@
 FactoryBot.define do
   factory :inbox do
     user
+    unread_messages_count { 0 }
   end
 end
 

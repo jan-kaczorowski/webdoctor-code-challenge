@@ -5,8 +5,8 @@ class Message < ApplicationRecord
   after_initialize do
     next unless previous_message && !inbox && !outbox
 
-    inbox = previous_message.outbox.user.inbox
-    outbox = previous_message.inbox.user.outbox
+    self.inbox = previous_message.outbox.user.inbox
+    self.outbox = previous_message.inbox.user.outbox
   end
 
   after_save do
@@ -19,6 +19,10 @@ class Message < ApplicationRecord
   validates :body, presence: true
   validates :body, length: { maximum: 500 }
   validate :verify_can_create_message
+
+  def mark_read!
+    update!(read: true)
+  end
 
   def verify_can_create_message
     return unless outbox.user.is_patient
