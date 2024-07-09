@@ -2,8 +2,9 @@ class Message < ApplicationRecord
   belongs_to :inbox
   belongs_to :outbox
 
-  before_validation do
-    next unless previous_message
+  after_initialize do
+    next unless previous_message && !inbox && !outbox
+
     self.inbox = previous_message.outbox.user.inbox
     self.outbox = previous_message.inbox.user.outbox
   end

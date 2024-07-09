@@ -34,6 +34,8 @@ group :test do
   gem 'capybara'
   gem 'capybara-screenshot'
   gem 'selenium-webdriver'
+  gem 'factory_bot_rails'
+  gem 'faker'
 end
 
 group :tools do
