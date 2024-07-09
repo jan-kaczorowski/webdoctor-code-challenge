@@ -1,3 +1,5 @@
+<h5><%= t('.unread_messages', msg_count:  User.current.inbox.unread_messages_count) %></h5>
+
 <h4><%= t('.title') %></h4>
 <div class="list-group w-auto">
   <% User.current.inbox.messages.each do |message| %>

@@ -6,6 +6,7 @@ en:
   messages:
     index:
       title: Inbox
+      unread_messages: "You have %{msg_count} unread message(s)."
       message:
         time_distance: "%{time_ago} ago"
     show:
