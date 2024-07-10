@@ -12,16 +12,16 @@ class MessagesController < ApplicationController
   end
 
   def create
-    message = Message.create(messages_params)
+    @message = Message.create(messages_params)
 
-    if message.valid?
-      Payment.create!(amount: @std_message[:fee], user: message.outbox.user) if @std_message
+    if @message.valid?
+      handle_payment
 
       redirect_to messages_path,
                   flash: { success: 'message created' }
     else
-      redirect_to new_message_path(previous_message_id: message.previous_message_id),
-                  flash: { error: message.errors.full_messages.join(', ') }
+      redirect_to new_message_path(previous_message_id: @message.previous_message_id),
+                  flash: { error: @message.errors.full_messages.join(', ') }
     end
   end
 
@@ -37,5 +37,12 @@ class MessagesController < ApplicationController
 
   def messages_params
     params.require(:message).permit(:previous_message_id, :body)
+  end
+
+  def handle_payment
+    return unless @std_message
+
+    payment = Payment.create!(amount: @std_message[:fee], user: @message.outbox.user)
+    Payments::PaymentCapturer.capture!(payment)
   end
 end

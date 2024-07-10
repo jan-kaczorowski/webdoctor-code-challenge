@@ -3,15 +3,8 @@
 class PaymentsCapturerJob < ActiveJob::Base
 
   def perform
-    Payment.where(state: 'pending').find_each { |payment| capture_payment(payment) }
-  end
-
-  private
-
-  def capture_payment(payment)
-    Payments::PaymentProviderFactory.provider.debit(payment.amount)
-    payment.update!(state: 'paid')
-  rescue StandardError => e
-    Rails.logger.info("Capturing payment ID#{payment.id} failed. Details: #{e.message}")
+    Payment.where(state: 'pending')
+           .where("created_at < ?", 1.minute.ago)
+           .find_each { |payment| Payments::PaymentCapturer.capture!(payment) }
   end
 end

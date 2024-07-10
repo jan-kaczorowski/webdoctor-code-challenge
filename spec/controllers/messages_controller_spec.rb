@@ -40,6 +40,43 @@ describe MessagesController do
         expect { subject }.to change {  new_message_recipient.inbox.reload.unread_messages_count }.by(1)
       end
 
+      context 'with prescription message' do
+        let(:params) do
+          {
+            standardized_message_id: 'lost_perscription',
+            message: {
+              previous_message_id: previous_message.id
+            }
+          }
+        end
+
+        it 'creates a new message with predefined body' do
+          subject
+          expect(created_message.body).to eq(Message.standardized_messages[:lost_perscription][:body])
+        end
+
+        it 'creates a new Payment object' do
+          expect { subject }.to change {  Payment.count }.by(1)
+        end
+
+        it 'attempts to capture payment' do
+          expect(Payments::PaymentCapturer).to receive(:capture!)
+
+          subject
+        end
+
+        context 'when payments raise an error' do
+          it 'flow is uninterrupted' do
+            allow_any_instance_of(Payments::FlakyPaymentProvider)
+              .to receive(:debit)
+              .and_raise(Payments::FlakyPaymentProvider::PaymentError, 'Failed to charge')
+
+            expect { subject }.to change {  Payment.count }.by(1)
+            expect(created_message).to be_present
+          end
+        end
+      end
+
       context 'when previous message is older than a week' do
         let!(:previous_message) { create(:message, created_at: 2.weeks.ago) }
 

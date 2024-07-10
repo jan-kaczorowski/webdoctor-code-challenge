@@ -1,5 +1,17 @@
-<h5><%= t('.unread_messages', msg_count:  User.current.inbox.unread_messages_count) %></h5>
-<h5><%= t('.unpaid_payments', count:  User.current.payments.where(state: 'pending').count) %></h5>
+<h5 class="mb-5"><%= t('.unread_messages', msg_count:  User.current.inbox.unread_messages_count) %></h5>
+
+<% if User.current.payments.where(state: 'pending').count.positive? %>
+<div class="card mb-5">
+  <div class="card-header">
+    Warning
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Pending payments!</h5>
+    <p><%= t('.unpaid_payments', count:  User.current.payments.where(state: 'pending').count) %><p>
+    <p class="card-text"><%= t('payment_warning') %></p>
+  </div>
+</div>
+<% end %>
 
 <h4><%= t('.title') %></h4>
 <div class="list-group w-auto">

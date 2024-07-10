@@ -15,3 +15,6 @@ en:
       lost_prescription: I've lost my prescription
     standardized_messages:
       lost_perscription: "I've lost my script, please issue a new one at a charge of €%{fee}"
+  payment_warning: |
+    If your payments will not get processed automatically, the doctor or customer service will
+    contact you to resolve that issue prior delivering any further services
