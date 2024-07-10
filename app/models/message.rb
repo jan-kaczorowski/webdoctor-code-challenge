@@ -2,6 +2,19 @@ class Message < ApplicationRecord
   belongs_to :inbox
   belongs_to :outbox
 
+  STANDARDIZED_MESSAGES = {
+    lost_perscription: {
+      fee: 10.0
+    }
+  }.freeze
+
+  def self.standardized_messages
+    STANDARDIZED_MESSAGES.each_with_object({}) do |(key, val), memo|
+      val[:body] = I18n.t("messages.standardized_messages.#{key}", fee: val[:fee])
+      memo[key] = val
+    end
+  end
+
   after_initialize do
     next unless previous_message && !inbox && !outbox
 

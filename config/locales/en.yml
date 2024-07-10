@@ -7,8 +7,11 @@ en:
     index:
       title: Inbox
       unread_messages: "You have %{msg_count} unread message(s)."
+      unpaid_payments: "You have %{count} unpaid service(s)."
       message:
         time_distance: "%{time_ago} ago"
     show:
       reply: Reply
-      lost_rescription: I've lost my prescription
+      lost_prescription: I've lost my prescription
+    standardized_messages:
+      lost_perscription: "I've lost my script, please issue a new one at a charge of €%{fee}"

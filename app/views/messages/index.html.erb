@@ -1,4 +1,5 @@
 <h5><%= t('.unread_messages', msg_count:  User.current.inbox.unread_messages_count) %></h5>
+<h5><%= t('.unpaid_payments', count:  User.current.payments.where(state: 'pending').count) %></h5>
 
 <h4><%= t('.title') %></h4>
 <div class="list-group w-auto">

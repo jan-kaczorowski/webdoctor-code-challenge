@@ -1,5 +1,9 @@
 class Payment < ApplicationRecord
   belongs_to :user
+
+  enum state: { paid: 'paid', pending: 'pending', failed: 'failed' }
+
+  validates :amount, presence: true
 end
 
 # == Schema Information
@@ -7,6 +11,8 @@ end
 # Table name: payments
 #
 #  id      :integer          not null, primary key
+#  amount  :decimal(10, 6)   not null
+#  state   :string           default("pending"), not null
 #  user_id :integer
 #
 # Indexes

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_09_080900) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_10_150958) do
   create_table "inboxes", force: :cascade do |t|
     t.integer "user_id"
     t.integer "unread_messages_count"
@@ -37,6 +37,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_09_080900) do
 
   create_table "payments", force: :cascade do |t|
     t.integer "user_id"
+    t.string "state", default: "pending", null: false
+    t.decimal "amount", precision: 10, scale: 6, null: false
     t.index ["user_id"], name: "index_payments_on_user_id"
   end
 
