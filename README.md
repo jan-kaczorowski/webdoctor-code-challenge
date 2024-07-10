@@ -1,3 +1,7 @@
+
+![Screenshot 2024-07-10 at 21 21 55](https://github.com/jan-kaczorowski/webdoctor-code-challenge/assets/3301665/b1d914d0-2636-4be1-9d2d-4cb979af4e3b)
+
+
 Please find attached a repo containing a Rails application. The application currently just displays a message which a patient has received after applying for a treatment.
 
 The application comes packaged with the following models:
